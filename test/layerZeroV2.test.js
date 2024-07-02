@@ -1,6 +1,5 @@
 const { expect } = require("chai");
-const { toAddressBytes32, getExternalFactory } = require("./utils");
-const { solidityPacked } = require("ethers");
+const { toAddressBytes32} = require("./utils");
 const { Options } = require("@layerzerolabs/lz-v2-utilities");
 
 describe("LayerZeroV2 OFT", function() {
@@ -14,10 +13,9 @@ describe("LayerZeroV2 OFT", function() {
       const signers = await ethers.getSigners();
       deployer = signers[0];
 
-      // Deploy mock endpoints
-      const Endpoint = await getExternalFactory("@layerzerolabs/lz-evm-protocol-v2", "EndpointV2");
-      endpointA = await Endpoint.deploy(0, deployer);
-      endpointB = await Endpoint.deploy(1, deployer);
+      const EndpointV2Mock = await ethers.getContractFactory("EndpointV2Mock");
+      endpointA = await EndpointV2Mock.deploy(0);
+      endpointB = await EndpointV2Mock.deploy(1);
 
       // Deploy coins
       const OftCoin = await ethers.getContractFactory("OftCoin");
@@ -59,8 +57,6 @@ describe("LayerZeroV2 OFT", function() {
       }
 
       let quote = await coinA.quoteSend(sendParams, false);
-      // TODO: quote fails with the following error (to fix):
-      // Error: VM Exception while processing transaction: reverted with an unrecognized custom error (return data: 0x6c1ccdb5)
     });
 
   });

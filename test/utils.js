@@ -4,6 +4,7 @@ const toAddressBytes32 = (address) => {
 
 /**
  * Get the contract factory from an external npm package (which artifacts are located in `node_modules`)
+ * Example usage: getExternalFactory("@layerzerolabs/lz-evm-protocol-v2", "EndpointV2")
  * @param npmPackage npm package name, e.g. `@uniswap/v3-core`
  * @param contractName contract name, e.g. `UniswapV3Pool`
  * @param subPath path under `contracts`, e.g. `interfaces/base/`
